@@ -24,7 +24,11 @@ module.exports = function(app) {
    
     
     var newNote = req.body
-    newNote.id = noteList[noteList.length-1].id + 1
+    if(noteList.length > 0){
+    newNote.id = noteList[noteList.length-1].id + 1}
+    else {
+      newNote.id=1
+    }
     noteList.push(newNote);
 
     // const tempNote = noteList
@@ -37,10 +41,11 @@ module.exports = function(app) {
 
 
   app.delete("/api/notes/:id", function(req, res){
-    let id = parseInt(req.params.id);
- console.log(id);
- const deleter = noteList[id];
-    noteList.splice(id-1,1)
+    // let id = parseInt(req.params.id);
+//  console.log(id);
+//  const deleter = noteList[id];
+ const deleter = noteList.findIndex(location=>location.id === parseInt(req.params.id))
+    noteList.splice(deleter,1)
 
     fs.writeFile('./db/db.json', JSON.stringify(noteList), (results,err)=>{
       if (err) console.log(err)
