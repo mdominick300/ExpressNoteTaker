@@ -1,5 +1,6 @@
 
 var noteList = require("../db/db.json");
+const fs = require("fs")
 
 let i = 0, ln = noteList.length;
   for (i; i<ln; i++){
@@ -24,35 +25,29 @@ module.exports = function(app) {
     
     var newNote = req.body
     newNote.id = noteList[noteList.length-1].id + 1
-
-    
     noteList.push(newNote);
-  // noteList.push(req.body);
-      res.json(true);
-     
-  });
-  
-  app.get("/api/notes/:id", function(req, res) {
-    var chosen = req.params.noteList;
 
-    return res.json(noteList)
-    console.log(chosen);
-  
-    // for (var i = 0; i < characters.length; i++) {
-    //   if (chosen === characters[i].routeName) {
-    //     return res.json(characters[i]);
-    //   }
-    // }
-  
-    // return res.json(false);
+    // const tempNote = noteList
+    
+    fs.writeFile('./db/db.json', JSON.stringify(noteList), (results,err)=>{
+      if (err) console.log(err)
+      res.json(results)
+    })
   });
+
 
   app.delete("/api/notes/:id", function(req, res){
     let id = parseInt(req.params.id);
- 
-    delete articles[id];
+ console.log(id);
+ const deleter = noteList[id];
+    noteList.splice(id-1,1)
+
+    fs.writeFile('./db/db.json', JSON.stringify(noteList), (results,err)=>{
+      if (err) console.log(err)
+      res.json(results)
+    })
     
-    delayedSend(res, '');
+    // delayedSend(res, '');
   });
 
 };
