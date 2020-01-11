@@ -2,7 +2,7 @@
 Take notes with this easy to use app 
 
 # Link
-http://nameless-river-17775.herokuapp.com/notes
+http://nameless-river-17775.herokuapp.com/
 
 # Code
 -Express
