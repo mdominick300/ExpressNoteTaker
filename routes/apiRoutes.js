@@ -8,12 +8,6 @@ let i = 0, ln = noteList.length;
   }
 
 module.exports = function(app) {
-  // API GET Requests
-  // Below code handles when users "visit" a page.
-  // In each of the below cases when a user visits a link
-  // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
-  // ---------------------------------------------------------------------------
-  
 
   app.get("/api/notes", function(req, res) {
     
@@ -31,7 +25,7 @@ module.exports = function(app) {
     }
     noteList.push(newNote);
 
-    // const tempNote = noteList
+
     
     fs.writeFile('./db/db.json', JSON.stringify(noteList), (results,err)=>{
       if (err) console.log(err)
@@ -41,9 +35,7 @@ module.exports = function(app) {
 
 
   app.delete("/api/notes/:id", function(req, res){
-    // let id = parseInt(req.params.id);
-//  console.log(id);
-//  const deleter = noteList[id];
+   
  const deleter = noteList.findIndex(location=>location.id === parseInt(req.params.id))
     noteList.splice(deleter,1)
 
@@ -51,8 +43,7 @@ module.exports = function(app) {
       if (err) console.log(err)
       res.json(results)
     })
-    
-    // delayedSend(res, '');
+ 
   });
 
 };
