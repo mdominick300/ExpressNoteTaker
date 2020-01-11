@@ -1,5 +1,5 @@
 # ExpressNoteTaker
-Weather display with 5 day forecast 
+Take notes with this easy to use app 
 
 # Link
 http://nameless-river-17775.herokuapp.com/notes
